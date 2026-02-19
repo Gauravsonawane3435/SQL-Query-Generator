@@ -5,11 +5,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import google.generativeai as genai
 from dotenv import load_dotenv
+from a2wsgi import ASGIMiddleware
 
 # Load environment variables
 load_dotenv()
 
 app = FastAPI(title="SQL Query Generator API")
+
+# WSGI Adaptor for PythonAnywhere
+wsgi_app = ASGIMiddleware(app)
 
 # Configure CORS
 app.add_middleware(
